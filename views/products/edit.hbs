@@ -1,12 +1,12 @@
 <h1>Edit a Product Here</h1>
-<form action="/action_page.php">
+<form action="/products">
   Id#:<br>
-  <input type="text" name={{prod.id}}><br>
+  <input type="text" value={{prod.id}} name={{prod.id}}><br>
   Name:<br>
-  <input type="text" name={{prod.name}}><br>
+  <input type="text" value={{prod.name}} name={{prod.name}}><br>
   Price:<br>
-  <input type="text" name={{prod.price}}><br>
+  <input type="text" value={{prod.price}} name={{prod.price}}><br>
   Inventory:<br>
-  <input type="text" name={{prod.inventory}}><br><br>
-  <input type="submit" value="Submit">
+  <input type="text" value={{prod.inventory}} name={{prod.inventory}}><br><br>
+  <button type="submit">Submit</button>
 </form>

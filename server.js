@@ -8,12 +8,13 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/products', products);
-app.use('/articles', articles);
 
 app.get('/', (req, res) => {
-  res.render('/index');
+  res.render('index');
 });
+
+app.use('/products', products);
+app.use('/articles', articles);
 
 app.set('view engine', '.hbs');
 app.engine('.hbs', exphbs({

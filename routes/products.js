@@ -54,11 +54,13 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/:id/edit', (req, res) => {
-  let body = req.body;
-  let id = Number(req.params.id);
-  products.editProduct(id.id, body.name, body.price, body.inventory);
+  // let body = req.body;
+  let itemId = Number(req.params.id);
+  // products.editProduct(id.id, body.name, body.price, body.inventory); 
+  let product = products.getProduct(itemId);
+  console.log(product)
+  res.render('products/edit', { prod: product })
 
-  res.render('products/edit', { prod: products })
 });
 
 
