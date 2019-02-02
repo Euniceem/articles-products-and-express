@@ -21,9 +21,8 @@ router.post('/', (req, res) => {
 });
 
 router.get('/new', (req, res) => {
-  let body = req.body;
-  products.addProduct(body.name, body.price, body.inventory);
 
+  // products.addProduct(body.name, body.price, body.inventory);
   res.render('products/new', { products: products });
 });
 
@@ -35,9 +34,11 @@ router.get('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   let id = Number(req.params.id);
-
-  if (products.editProduct(id)) {
-    res.redirect('/products/edit' + id);
+  const { name, price, inventory } = req.body;
+  console.log(name)
+  if (products.getProduct(id)) {
+    products.editProduct(id, name, Number(price), Number(inventory));
+    res.redirect(`/products/${id}`);
   } else {
     res.redirect('/products/new');
   }
@@ -46,7 +47,8 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   let id = Number(req.params.id);
 
-  if (products.deleteProduct(id)) {
+  if (products.getProduct(id)) {
+    products.deleteProduct(id);
     res.redirect('/products/index');
   } else {
     res.redirect('/products/new');

@@ -34,10 +34,10 @@
     let product = productsObj.products.find(function (product) {
       return id === product.id;
     });
-
+    console.log(product.name, name)
     if (product) {
       product.name = name;
-      product.price = price;
+      product.price = Number(price);
       product.inventory = parseInt(inventory);
     }
   }
