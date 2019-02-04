@@ -1,0 +1,15 @@
+<h1>Edit Product Here: {{prod.id}}</h1>
+
+<form action="/products/{{prod.id}}?_method=PUT" method="POST" enctype="application/x-www-form-urlencoded">
+  Name:<br>
+  <input type="text" name="name" placeholder="{{prod.name}}"><br>
+  Price:<br>
+  <input type="text" name="price" placeholder="{{prod.price}}"><br>
+  Inventory:<br>
+  <input type="text" name="inventory" placeholder="{{prod.inventory}}"><br><br>
+  <input type="submit"><br><br>
+</form>
+
+<form action="/products/{{prod.id}}?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+  <input type="submit" value="Remove">
+</form>

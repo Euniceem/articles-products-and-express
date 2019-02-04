@@ -4,10 +4,11 @@ const exphbs = require('express-handlebars');
 const products = require('./routes/products');
 const articles = require('./routes/articles');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -25,4 +26,3 @@ app.engine('.hbs', exphbs({
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
-
