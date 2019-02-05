@@ -1,0 +1,19 @@
+<h1>Edit Article: {{title}}</h1>
+{{#if prod.title}}
+<form action="/articles/{{url_title}}?_method=PUT" method='POST' enctype="application/x-www-form-urlencoded">
+  Title<br>
+  <input type="text" id='title-input' name="title" placeholder="{{title}}"><br>
+  Author:<br>
+  <input type="text" name="author" placeholder="{{author}}"><br>
+  Body:<br>
+  <input type="text" name="body" placeholder="{{body}}"><br><br>
+  <input type="submit">
+</form>
+
+<form action="/articles/{{url_title}}?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+  <input type="submit" value="Remove">
+</form>
+
+{{else}}
+<div>Error the title does not exist</div>
+{{/if}}

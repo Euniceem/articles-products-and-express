@@ -1,0 +1,14 @@
+<h1>Add New Article:</h1>
+{{#if title }}
+<form action="/articles" method="POST" enctype="application/x-www-form-urlencoded">
+  Title:<br>
+  <input type="text" name="title"><br>
+  Author:<br>
+  <input type="text" name="author"><br>
+  Body:<br>
+  <input type="text" name="body"><br><br>
+  <input type="submit">
+</form>
+{{else}}
+<div>The Article already exists. Try again!</div>
+{{/if}}

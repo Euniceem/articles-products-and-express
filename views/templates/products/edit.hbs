@@ -1,0 +1,19 @@
+<h1>Edit Product Here: {{id}}</h1>
+{{#if name}}
+<form action="/products/{{id}}?_method=PUT" method="POST" enctype="application/x-www-form-urlencoded">
+  Name:<br>
+  <input type="text" name="name" placeholder="{{name}}"><br>
+  Price:<br>
+  <input type="text" name="price" placeholder="{{price}}"><br>
+  Inventory:<br>
+  <input type="text" name="inventory" placeholder="{{inventory}}"><br><br>
+  <input type="submit"><br><br>
+</form>
+
+<form action="/products/{{id}}?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+  <input type="submit" value="Remove">
+</form>
+
+{{else}}
+<div>Error the product does not exist</div>
+{{/if}}
