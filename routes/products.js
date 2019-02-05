@@ -11,18 +11,6 @@ router.get('/', (req, res) => {
     })
 });
 
-router.post('/', (req, res) => {
-  knex('products')
-    .insert({
-      name: req.body.name,
-      price: parseInt(req.body.price),
-      inventory: parseInt(req.body.inventory)
-    })
-    .then(() => {
-      res.redirect('/products');
-    });
-});
-
 router.get('/new', (req, res) => {
   res.render('templates/products/new');
 });
@@ -37,6 +25,29 @@ router.get('/:id', (req, res) => {
       console.log('Get One product: ', products)
       res.render('templates/products/product', { prod: products[0] })
     })
+});
+
+router.get('/:id/edit', (req, res) => {
+  let id = Number(req.params.id);
+
+  knex('products')
+    .select('id', 'name', 'price', 'inventory')
+    .where('id', id)
+    .then((product) => {
+      res.render('templates/products/edit', { prod: product[0] })
+    })
+});
+
+router.post('/', (req, res) => {
+  knex('products')
+    .insert({
+      name: req.body.name,
+      price: parseInt(req.body.price),
+      inventory: parseInt(req.body.inventory)
+    })
+    .then(() => {
+      res.redirect('/products');
+    });
 });
 
 router.put('/:id', (req, res) => {
@@ -67,18 +78,6 @@ router.delete('/:id', (req, res) => {
     })
     .catch(() => {
       res.redirect('/products/new');
-    })
-});
-
-router.get('/:id/edit', (req, res) => {
-  let id = Number(req.params.id);
-
-  knex('products')
-    .select('id', 'name', 'price', 'inventory')
-    .where('id', id)
-    .then((product) => {
-      console.log("PRODUCT EDIT: ", product)
-      res.render('templates/products/edit', { prod: product[0] })
     })
 });
 

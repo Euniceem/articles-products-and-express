@@ -21,11 +21,5 @@ CREATE TABLE articles (
   author VARCHAR(100) NOT NULL
 );
 
--- INSERT INTO products (name, price, inventory)
--- VALUES ('apples', 2.50, 5);
-
--- INSERT INTO articles (title, body, author)
--- VALUES ('Harry Potter', 'Hogwarts', 'J.K Rowling');
-
 SELECT * FROM products;
 SELECT * FROM articles;
