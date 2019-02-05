@@ -1,5 +1,5 @@
 <h1>Edit Article: {{title}}</h1>
-{{#if title}}
+{{#if prod.title}}
 <form action="/articles/{{url_title}}?_method=PUT" method='POST' enctype="application/x-www-form-urlencoded">
   Title<br>
   <input type="text" id='title-input' name="title" placeholder="{{title}}"><br>

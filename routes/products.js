@@ -6,13 +6,12 @@ router.get('/', (req, res) => {
   knex('products')
     .select('id', 'name', 'price', 'inventory')
     .then((products) => {
-      console.log("GET PRODUCTS ", products)
       res.render('templates/products/index', { products: products })
-    })
+    });
 });
 
 router.get('/new', (req, res) => {
-  res.render('templates/products/new');
+  res.render('templates/products/new', { name: true });
 });
 
 router.get('/:id', (req, res) => {
@@ -22,9 +21,8 @@ router.get('/:id', (req, res) => {
     .select('id', 'name', 'price', 'inventory')
     .where('id', id)
     .then(products => {
-      console.log('Get One product: ', products)
-      res.render('templates/products/product', { prod: products[0] })
-    })
+      res.render('templates/products/product', products[0])
+    });
 });
 
 router.get('/:id/edit', (req, res) => {
@@ -34,8 +32,8 @@ router.get('/:id/edit', (req, res) => {
     .select('id', 'name', 'price', 'inventory')
     .where('id', id)
     .then((product) => {
-      res.render('templates/products/edit', { prod: product[0] })
-    })
+      res.render('templates/products/edit', product[0])
+    });
 });
 
 router.post('/', (req, res) => {
@@ -46,7 +44,11 @@ router.post('/', (req, res) => {
       inventory: parseInt(req.body.inventory)
     })
     .then(() => {
+      console.log('hit')
       res.redirect('/products');
+    })
+    .catch(() => {
+      res.render('templates/products/new', { name: false });
     });
 });
 
@@ -63,22 +65,23 @@ router.put('/:id', (req, res) => {
       res.redirect(`/products/${id}`);
     })
     .catch(() => {
-      res.redirect('/products/new');
+      res.redirect('/products/edit');
     })
 })
 
 router.delete('/:id', (req, res) => {
   let id = Number(req.params.id);
+
   knex('products')
+    .select('id', 'name', 'price', 'inventory')
     .where('id', id)
     .delete()
     .then(() => {
-      console.log('DELETE ID: ', id)
       res.redirect('/products');
     })
     .catch(() => {
-      res.redirect('/products/new');
-    })
+      res.redirect(`templates/products/edit`, { name: false });
+    });
 });
 
 

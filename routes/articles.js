@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     .then((articles) => {
       console.log(articles)
       res.render('templates/articles/index', { articles: articles })
-    })
+    });
 });
 
 router.get('/new', (req, res) => {
@@ -40,8 +40,6 @@ router.get('/:url_title/edit', (req, res) => {
 
 
 router.post('/', (req, res) => {
-
-
   knex('articles')
     .insert({
       url_title: req.body.title,
@@ -54,20 +52,18 @@ router.post('/', (req, res) => {
     })
     .catch(() => {
       res.render('templates/articles/new', { title: false });
-    })
+    });
 });
 
 router.put('/:url_title', (req, res) => {
   let url_title = req.params.url_title;
   let updatedBody = req.body;
   updatedBody.url_title = updatedBody.title;
-
   let title = req.body.title;
-  console.log(title)
 
   knex('articles')
     .select('title', 'author', 'body')
-    .where('url_title', req.body.title)
+    .where('url_title', title)
     .then(article => {
       if (article.length > 0) {
         knex('articles')
@@ -83,22 +79,23 @@ router.put('/:url_title', (req, res) => {
     .catch((err) => {
       console.log(err.message)
       res.status(404);
-    })
+    });
 });
 
 router.delete('/:url_title', (req, res) => {
   let url_title = req.params.url_title;
+  let title = req.body.title
 
   knex('articles')
-    .where('url_title', url_title)
+    .select('title', 'author', 'body')
+    .where('url_title', title)
     .delete()
     .then(() => {
       res.redirect(`/articles`);
     })
     .catch(() => {
-      res.redirect(`/articles/${url_title}/edit`)
-    })
+      res.render(`templates/articles/edit`, { title: false })
+    });
 });
-
 
 module.exports = router;
